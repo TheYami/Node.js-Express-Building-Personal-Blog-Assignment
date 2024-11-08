@@ -24,7 +24,7 @@ app.get('/profiles', (req, res) => {
     return res.json(data); 
 });
 
-app.post("/posts", async (req,res)=>{
+app.post("/assignments", async (req,res)=>{
     const newPosts = {
         ...req.body,
         created_at:new Date(),
