@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import connectionPool from './utils/db.mjs';
+import {validateCreatePostData} from './middlewares/post.validation.mjs'
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -82,7 +83,7 @@ app.get('/posts/:postId',async(req,res)=>{
 
 })
 
-app.post("/posts", async (req,res)=>{
+app.post("/posts",[validateCreatePostData], async (req,res)=>{
     const newPosts = {
         ...req.body,
         created_at:new Date(),
@@ -115,7 +116,7 @@ app.listen(port, () => {
 });
 
 
-app.put('/posts/:postId', async(req,res)=>{
+app.put('/posts/:postId',[validateCreatePostData], async(req,res)=>{
     const postIdFromClient = req.params.postId
 
     const updatedPost = {
